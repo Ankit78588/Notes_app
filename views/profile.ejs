@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        *{
+            font-family: sans-serif;
+        }
+        body{
+            background-color: #fafbff;
+        }
+        #welcome_note{
+            font-size: 22px;
+        }
+        #post_title{
+            margin: 6px 0;
+            font-size: 13px;
+        }
+        #logout_btn{
+            text-decoration: none;
+            color: white;
+            background: rgb(191, 14, 14);
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 16px;
+
+            position: fixed;
+            top: 20px;
+            right: 20px;
+        }
+
+        /* ---- form ----- */
+        textarea{
+            display: block;
+            outline: none;
+            resize: none;
+            padding: 5px 10px;
+        }
+        input{
+            color: white;
+            border: none;
+            background: rgb(39, 76, 185);
+            padding: 10px;
+            border-radius: 3px;
+            margin: 20px 0;
+            cursor: pointer;
+        }
+        
+        /* your_posts */
+        #your_posts{
+            margin-top: 60px;
+            font-size: 12px;
+        }
+
+
+
+        /* post_box */
+        #post_box{
+            width: 400px;
+            background-color: rgb(249, 249, 249);
+            background-color: rgba(0, 151, 226, 0.219);
+            padding: 10px;
+            border: 1px solid black;
+            border-radius: 3px;
+            margin-bottom: 20px;
+        }
+
+        .username{
+            color: rgb(25, 0, 255);
+            font-size: 13px;
+            margin: 0px 0 1px 0;
+        }
+        .content{
+            font-size: 15px;
+            margin: 10px 0;
+        }
+        .like{
+            font-size: 12px;
+            color: rgb(25, 0, 255);
+            margin-right: 10px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .edit{
+            font-size: 12px;
+            cursor: pointer;
+            text-decoration: none;
+            color: rgb(16, 16, 16);
+        }
+        .delete{
+            color: rgb(199, 7, 7);
+            text-decoration: none;
+            font-size: 13px;
+            margin-left: 250px;
+        }
+
+        #DP{
+            width: 45px;
+            border-radius: 5px;
+            position: relative;
+            top: 12px;
+        }
+
+        #upload_btn{
+            background-color: rgb(255, 64, 0);
+            position: relative;
+            top: -75px;
+            right: -170px;
+        }
+    </style>
+</head>
+
+<body>
+    
+    <p id="welcome_note"><img id="DP" src="/images/uploads/<%= user.profileimage %>" alt=""> Welcome <strong> <%= user.name %> 👋</strong></p>
+    <p id="post_title">Let's create a new Post!</p>
+    <form action="/createpost" method="post">
+        <textarea name="content" id="" cols="40" rows="5" placeholder="What's on your mind ?"></textarea>
+        <input type="submit" value="Create new post">
+    </form>
+
+    <a href="/uploadDP">
+        <input id="upload_btn" type="submit"  value="Upload Profile Image">
+    </a>
+
+    <p id="your_posts">Your Posts...</p>
+    <% user.posts.reverse().forEach(function(post){ %>
+        <div id="post_box">
+            <p class="username">@<%= user.name %> </p>
+            <p class="content">  <%= post.content %> </p> 
+
+            <div style="font-size: 12px;"> <%= post.likes.length %> Likes </div>
+            <a class="like" href="/like/<%= post._id %>">
+                <%= post.likes.indexOf(user._id) === -1 ? "Like" : "Dislike" %>
+            </a> 
+            <a class="edit" href="/edit/<%= post._id %>">Edit</a> 
+            <a class="delete" href="/delete/<%= post._id %>">Delete</a>
+        </div>
+    <% }); %>
+
+
+    <a id="logout_btn" href="/logout"><i class="fa fa-sign-out" style="font-size:16px;color:rgb(255, 255, 255); margin-right: 10px;"></i>Logout</a>
+</body>
+</html>
