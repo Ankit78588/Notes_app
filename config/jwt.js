@@ -13,7 +13,7 @@ const generateToken = function(payload){
 // verifyToken
 const verifyTokenMiddleware = function(req, res, next){
     const token = req.cookies.token;
-    if(!token) return res.render('Homepage');
+    if(!token) return res.render('homepage');
     
     try{
         const decoded = jwt.verify(token, secret);
