@@ -1,9 +1,6 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
-require('dotenv').config();
-
-// mongoose.connect(process.env.MONGODB_URL_LOCAL);
-mongoose.connect(process.env.MONGODB_URL);   
+ 
 
 const userSchema = mongoose.Schema({
     name: String,
