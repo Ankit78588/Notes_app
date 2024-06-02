@@ -5,17 +5,8 @@ const userModel = require('./models/users');
 const postModel = require('./models/post');
 require('dotenv').config();
 const PORT = process.env.PORT || 3009;
-
-const app = express();
-app.set('view engine', 'ejs');
-app.use(express.static('./public'));
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
-app.use(cookieParser());
-
 const db = require('./config/db_connection');
 const homeRoutes = require('./routes/homeRoutes');
-
 const createpostRoutes = require('./routes/createpostRoutes');
 const editRoutes = require('./routes/editRoutes');
 const likeRoutes = require('./routes/likeRoutes');
@@ -24,10 +15,17 @@ const showallpostRoutes = require('./routes/showallpostRoutes');
 const showusersRoutes = require('./routes/showusersRoutes');
 const updatepostRoutes = require('./routes/updatepostRoutes');
 const uploadDPRoutes = require('./routes/uploadDPRoutes');
-
 const signupRoutes = require('./routes/signupRoutes');
 const loginRoutes = require('./routes/loginRoutes');
 const logoutRoutes = require('./routes/logoutRoutes');
+
+
+const app = express();
+app.set('view engine', 'ejs');
+app.use(express.static('./public'));
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.use(cookieParser());
 
 
 app.use('/', homeRoutes);
